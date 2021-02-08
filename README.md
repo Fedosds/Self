@@ -1,37 +1,51 @@
-## Welcome to GitHub Pages
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Библиотека им Федора</title>
+</head>
+<body>
+  <?php require "blocks/header.php" ?>
+  <?php
+require_once 'blocks/connect.php';
+?>
+    <div class="container mt-5">
+      <h3 class="mb-5">Лучшие книги</h3>
+      <div class="d-flex flex-wrap">
+      <?php
+        for($i = 0; $i < 6; $i++):
+      ?>
+      <?php
+      $id = $i+1;
+      $quer = "SELECT idbook, img, description FROM book WHERE idbook = '$id'";
+      $book = mysqli_query($conn, $quer);
+      $book = mysqli_fetch_assoc($book);
+        ?>
+          <div class="card mb-5 shadow-sm">
+            <div class="card-header">
+                <img src="img/<?=$book[img]?>" alt="" style="height: 500px" class="img-thumbnail">
+                <div class="card-body">
+                  <p class="card-text" style="max-height: 100px; overflow: auto; text-overflow: ellipsis"><?=$book[description]?></p>
+                  <div class="d-flex justify-content-between align-items-stretch">
+                    <div class="btn-group">
+                      <a href="info.php?id=<?=($i+1)?>" type="button" class="btn btn-sm btn-outline-secondary">Подробнее</a>
+                      <?php
+                        if($_COOKIE['user'] == 'Fedor'):
+                      ?>
+                      <a href="sql/edit.php?id=<?=($i+1)?>" type="button" class="btn btn-sm btn-outline-secondary">Редактировать</a>
+                      <?php endif; ?>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+      <?php endfor; ?>
+      </div>
+    </div>
 
-You can use the [editor on GitHub](https://github.com/Fedosds/Self/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
+  <?php require "blocks/footer.php" ?>
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Fedosds/Self/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+</body>
+</html>
