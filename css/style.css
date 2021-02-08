@@ -1,0 +1,31 @@
+body {
+  background: #EEFFFF;
+}
+
+footer {
+  background: #EEFFFF;
+}
+
+form {
+  width: 380px;
+}
+
+.card {
+  width: 32%;
+  margin-left: 1%;
+}
+th,td,tr {
+  padding: 10px;
+  border: 1px solid White;
+  border-color: #fff;
+  text-align: center;
+  vertical-align: middle;
+  }
+th {
+  background: #606060;
+  color: #fff;
+}
+
+td {
+  background: #b5b5b5;
+}
