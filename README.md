@@ -4,48 +4,53 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
   <title>Библиотека им Федора</title>
 </head>
 <body>
-  <?php require "blocks/header.php" ?>
-  <?php
-require_once 'blocks/connect.php';
-?>
-    <div class="container mt-5">
-      <h3 class="mb-5">Лучшие книги</h3>
-      <div class="d-flex flex-wrap">
-      <?php
-        for($i = 0; $i < 6; $i++):
-      ?>
-      <?php
-      $id = $i+1;
-      $quer = "SELECT idbook, img, description FROM book WHERE idbook = '$id'";
-      $book = mysqli_query($conn, $quer);
-      $book = mysqli_fetch_assoc($book);
-        ?>
-          <div class="card mb-5 shadow-sm">
-            <div class="card-header">
-                <img src="img/<?=$book[img]?>" alt="" style="height: 500px" class="img-thumbnail">
-                <div class="card-body">
-                  <p class="card-text" style="max-height: 100px; overflow: auto; text-overflow: ellipsis"><?=$book[description]?></p>
-                  <div class="d-flex justify-content-between align-items-stretch">
-                    <div class="btn-group">
-                      <a href="info.php?id=<?=($i+1)?>" type="button" class="btn btn-sm btn-outline-secondary">Подробнее</a>
-                      <?php
-                        if($_COOKIE['user'] == 'Fedor'):
-                      ?>
-                      <a href="sql/edit.php?id=<?=($i+1)?>" type="button" class="btn btn-sm btn-outline-secondary">Редактировать</a>
-                      <?php endif; ?>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-      <?php endfor; ?>
-      </div>
-    </div>
 
-  <?php require "blocks/footer.php" ?>
+<?php require "blocks/header.php" ?>
+<?php require_once 'blocks/connect.php'; ?>
+
+<div class="container mt-5">
+  <table>
+      <tr>
+        <th>ID</th>
+        <th>Название</th>
+        <th>Автор</th>
+        <th>Описание</th>
+        <th>Объем</th>
+        <th>Ссылка на текст</th>
+        <th>Ссылка на изорбражение</th>
+      </tr>
+
+      <?php
+        $query = "SELECT idbook, namebook, autor.autorname, description, objem, text, img FROM book INNER JOIN autor ON book.idauthor = autor.idautor";
+        $products = mysqli_query($conn, $query);
+        $products = mysqli_fetch_all($products);
+        foreach ($products as $products) {
+            ?>
+
+          <tr>
+            <td><?= $products[0]?></td>
+            <td><?= $products[1]?></td>
+            <td><?= $products[2]?></td>
+            <td><div style="max-height: 70px; overflow: auto; text-overflow: ellipsis;"><?= $products[3]?></td></div>
+            <td><?= $products[4]?></td>
+            <td><?= $products[5]?></td>
+            <td><?= $products[6]?></td>
+          </tr>
+
+          <?php
+        }
+      ?>
+  </table>
+</form>
+
+</div>
+
+<?php require "blocks/footer.php" ?>
 
 </body>
 </html>
