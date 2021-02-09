@@ -9740,6 +9740,7 @@ button.bg-dark:focus {
 
 .text-uppercase {
   text-transform: uppercase !important;
+  color: #000000; 
 }
 
 .text-capitalize {
