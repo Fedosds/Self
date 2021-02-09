@@ -10046,6 +10046,10 @@ img::-moz-selection {
   border-radius: 100%;
 }
 
+.colortext {
+  color: #fed136;
+}
+
 #mainNav {
   padding-top: 1rem;
   padding-bottom: 1rem;
