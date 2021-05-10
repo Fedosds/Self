@@ -5401,6 +5401,8 @@ a.close.disabled {
 }
 .modal.show .modal-dialog {
   transform: none;
+  width: 80%;
+  left: 10%;
 }
 .modal.modal-static .modal-dialog {
   transform: scale(1.02);
